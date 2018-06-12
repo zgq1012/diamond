@@ -1,0 +1,33 @@
+<view class='d-info relative'>
+    <view class='h2'>{{shipping_name}}</view>
+    <view class='p1'>运单号：{{shipping_order}}
+      <view class='right copy center' bindtap='copy' data-km='{{shipping_order}}'>复制</view>
+    </view>
+</view>
+  <view class='ship_list bg-fff'>
+     <block wx:for="{{list}}" wx:key="a"> 
+    <view class='item clearfix{{index==0?" ac":""}}'>
+      <view class='left relative time center'>
+        <view class='in'>
+          <view class='hour'>{{item.hour}}</view>
+          <view class='year'>{{item.year}}</view>
+        </view>
+
+      </view>
+      <view class='left cont relative'>
+        <view class='in'>
+          <text>{{item.track_content}}</text>
+        </view>
+
+      </view>
+    </view>
+    
+
+     </block> 
+  </view>
+  <view class='ship_none center' wx:if="{{!list[0]}}">
+    <image src='/images/ship.png' mode='widthFix'></image>
+  <view class='p'>暂时无法获取到该快递公司物流信息</view>
+  <view class='p'>请您复制物流单号</view>
+  <view class='p'>在快递公司官网进行查询</view>
+  </view>

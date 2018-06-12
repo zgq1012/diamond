@@ -1,0 +1,59 @@
+<!--pages/news/order.wxml-->
+<view class='w_order bg-eb'>
+  <view class='in'>
+      <view class='goods bg-fff'>{{product.product_name}}</view>
+
+<view class='mar-top num bg-fff' wx:if="{{type!=13}}">
+  <view class='p1 clearfix'>
+      <view class='left l'>参与次数<span>（剩余{{product.remain_times}}人次）</span>
+        <view class='p red'>每人次需要{{product.single_price}}个宝钻</view>
+      </view>
+      <view class='right r clearfix center'>
+          <view class='left j' bindtap='jian'>-</view>
+          <view class='left'><input value='{{bb}}' bindblur='shuru'></input></view>
+          <view class='left j' bindtap='jia'>+</view>
+      </view>
+  </view>
+  <view class='p2 clearfix'>
+      <view class='left item center {{bb==5?" ac":""}}' data-z='5' bindtap='fuzhi'>5</view>
+      <view class='left item center {{bb==10?" ac":""}}' data-z='10' bindtap='fuzhi'>10</view>
+      <view class='left item center {{bb==15?" ac":""}}' data-z='15' bindtap='fuzhi'>15</view>
+      <view class='left item center {{bb==20?" ac":""}}' data-z='20' bindtap='fuzhi'>20</view>
+      <view class='left item center {{bb==25?" ac":""}}' data-z='25' bindtap='fuzhi'>25</view>
+  </view>
+
+</view>
+<view class='pk2 zhibo clearfix bg-fff mar-top' wx:if="{{type==13}}">
+  <view class='left'>
+  <view class='p1'>参与次数<span>(剩余{{product.remain_times}}次)</span></view> 
+    <view class='p red'>每人次需要{{product.single_price}}个宝钻</view>
+  </view>
+  <view class='right center'>
+    <input value='{{bb}}' bindinput='bu'></input>
+  </view>
+</view>
+ <view class='zhibo claefix relative bg-fff mar-top'>
+      <view class='left l'>优惠券</view>
+      <view class='i_r i_r1 right'>无可用优惠券 <image src='/icons/right-back.png' mode='widthFix'></image></view>
+  </view>
+   <view class='blo claefix relative bg-fff mar-top'>
+      <view class='left l'>
+        <view class='tit'>充值10友币获赠100宝钻</view>
+        <view class='des red'>已有{{product.diamond}}宝钻，本单需要{{diamond}}宝钻</view>
+      </view>
+      <view class='right'>
+          <view class='r relative' bindtap='qie'><span style="left:-{{dd}}rpx" class="relative "></span></view>
+      </view>
+  </view>
+
+   <view class='zhibo claefix relative bg-fff mar-top'>
+      <view class='left l'>联系电话</view>
+      <view class='left r'><input value='{{phone}}' placeholder='用于联系' bindblur='phone'></input></view>
+  </view>
+<view class='tishi'>本活动为公平、随机的抽奖游戏，无法保证您一定获得本商品，参与需谨慎。</view>
+  <view class='tijiao clearfix bg-fff'>
+    订单金额：<span class="red">￥{{total}}</span>
+    <view class='right btn1 {{gray?"gray":""}}' bindtap='xiadan'>提交订单</view>
+  </view>
+  </view>
+</view>

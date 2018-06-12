@@ -1,0 +1,28 @@
+<!--pages/member/rule.wxml-->
+<view class='rule'>
+  <view class='number bg-fff'>
+      <view class='h2'>揭晓号码：</view>
+      <view class='p'>{（数值A+数值B）÷商品所需人数}取余数+10000001=<span class="red">{{prized_number}}</span></view>
+  </view>
+  <view class='number bg-fff a'>
+      <view class='h2'>数值A：</view>
+      <view class='p'>距离该产品最后抽奖时间最近一期的中国福利彩票“重庆时时彩“开奖结果=<span class="red">{{a}}</span></view>
+  </view>
+  <view class='number bg-fff a'>
+      <view class='h2'>数值B：</view>
+      <view class='p'>截止该产品最后抽奖时间最近的50个用户参与时间，按照时、分、秒、毫秒的顺序组合总和=<span class="red">{{b}}</span></view>
+  </view>
+  <view class='n-list bg-fff'>
+    <view class='dt clearfix'>
+      <view class='left'>参与时间</view>
+      <view class='right'>参与用户</view>
+    </view>
+    <block wx:for="{{list}}" wx:key="a">
+    <view class='dd'>
+        <view class='left'>{{item.submit_timestamp}}<span>({{item.t}})</span></view>
+        <view class='right'>{{item.prized_phone}}</view>
+    </view>
+   </block>
+  </view>
+</view>
+<view class='center more' wx:if="{{!have}}">没有更多数据了</view>

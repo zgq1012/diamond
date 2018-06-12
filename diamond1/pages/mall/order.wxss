@@ -1,0 +1,2 @@
+/* pages/mall/order.wxss */
+page{background-color: #E9EFF5;box-sizing:content-box;width: 100%}

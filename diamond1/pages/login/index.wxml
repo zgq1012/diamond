@@ -1,0 +1,10 @@
+<!--pages/login/index.wxml-->
+<view class='shouquan center' wx:if="{{sq}}">
+<view class='p'>这有一个按钮，按还是不按？</view>
+<view class='s_bot'>
+    <button open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 按 </button>
+    <button open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 不按 </button>
+</view>
+
+</view>
+

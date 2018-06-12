@@ -1,0 +1,38 @@
+<!--pages/home/kai.wxml-->
+<view class='announce'>
+  <view class='nav center bg-fff fixed'>
+    <view class='item{{tab==1?" ac":""}}' bindtap='tab' data-tab='1'>等待揭晓</view>
+    <view class='item{{tab==2?" ac":""}}' bindtap='tab' data-tab='2'>已揭晓</view>
+  </view>
+  <view class='an-list' wx:if="{{tab==1}}">
+    <view class='wu center'>
+      <view class='pic'>
+        <image src='/images/wu.png' mode='widthFix'></image>
+      </view>
+      <view class='p1'>当前没有等待揭晓的商品~</view>
+    </view>
+  </view>
+  <view class='d_list' wx:if="{{tab==2}}">
+    <view class='not'>
+      <image src='/images/i.jpg' mode='widthFix'></image>温馨提示：已揭晓只保留最近7天内揭晓的商品
+    </view>
+    <block wx:for="{{list}}" wx:key="a">
+    <navigator url="/pages/news/show?periods_id={{item.periods_id}}&jie=1" class='goods-item clearfix bg-fff relative'>
+      <view class='left l clearfix center'>
+        <image src="{{item.img}}"></image>
+        <view class='qi'>第{{item.periods}}期</view>
+      </view>
+      <view class='right r'>
+        <view class='p1'>{{item.name}}</view>
+        <view class='p2 red'>揭晓号码：{{item.prized_number}}</view>
+        <view class='p2'>中奖用户：{{item.prized_phone}}</view>
+        <view class='p2'>揭晓时间：{{item.prizedsucc_dt}}</view>
+        <view class='p2'>参与人次：{{item.total_times}}次</view>
+      </view>
+
+    </navigator>
+    </block>
+
+<view class='center more' wx:if="{{!have}}">没有更多数据了</view>
+  </view>
+</view>

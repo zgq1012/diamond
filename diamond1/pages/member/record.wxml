@@ -1,0 +1,23 @@
+<!--pages/member/record.wxml-->
+<view class='record'>
+  <view class='nav center bg-fff fixed'>
+    <view class='item{{tab==2?" ac":""}}' bindtap='tab' data-tab='2'>宝钻</view>
+    <view class='item{{tab==1?" ac":""}}' bindtap='tab' data-tab='1'>友币</view>
+  </view>
+  <view class='r-list bg-fff'>
+    <block wx:for="{{list}}" wx:key="a">
+      <view class='item clearfix relative'>
+        <view class='left'>
+          <view class='h3'>{{item.name}}</view>
+          <view class='time'>{{item.created_dt}}</view>
+        </view>
+        <view class='right money red'>{{item.num}}</view>
+      </view>
+    </block>
+    <!--  -->
+   
+
+
+  </view>
+  <view class='center more' wx:if="{{!have}}">没有更多数据了</view>
+</view>

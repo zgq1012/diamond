@@ -1,0 +1,44 @@
+<!--pages/member/recharge.wxml-->
+<view class='recharge'>
+<view class='clearfix sj bg-fff'>
+    <view class='left l'>联系电话</view>
+    <view class='input'><input placeholder='请输入充值手机号码' bindblur='phone' value="{{phone}}"></input></view>
+</view>
+  <view class='sm'>请选择您要购买的友币数<span>(充值友币即可获得宝钻)</span></view>
+<view class='charge-list clearfix center'>
+<block wx:for="{{list}}" wx:key="a">
+    <view class='item item2 {{item.rmb==ac?" ac":""}}{{item.is_recommend?" z":""}} left bg-fff relative' data-rmb='{{item.rmb}}' data-item_code='{{item.item_code}}' bindtap='xuan'>
+      <view class='p1'>{{item.you_num}}<span>友币</span></view>
+      <view class='p2'>{{item.detail}}</view>
+      <view class='p3 red'>￥{{item.rmb}}</view>
+      <view class='x'><image src='/images/x.jpg' mode='widthFix'></image></view>
+      <view class='h'><image src='/images/z.png' mode='widthFix'></image></view>
+    </view>
+    </block>
+    
+    <view class='item item2 s1 left bg-fff relative' wx:if="{{!s}}" bindtap='shu'>
+      <view class='p2'>输入其他数量</view>
+      <view class='p3'>宝钻数量根据输入数量计算</view>
+            <view class='x'><image src='/images/x.jpg' mode='widthFix'></image></view>
+      <view class='h'><image src='/images/z.png' mode='widthFix'></image>超值</view>
+
+    </view>
+    <view class='item item2 ac s left bg-fff relative' wx:if="{{s}}">
+      <view class='p1'><span>{{ac}}友币</span></view>
+      <view class='input'><input placeholder='输入金额' bindinput='ding' value="{{ding}}"></input></view>
+      <view class='p2'>送{{ac*10}}{{song}}宝钻</view>
+            <view class='x'><image src='/images/x.jpg' mode='widthFix'></image></view>
+      <view class='h'><image src='/images/z.png' mode='widthFix'></image>超值</view>
+
+    </view>
+</view>
+</view>
+<view class='model' wx:if="{{model}}">
+    <view class='inner bg-fff'>
+        <view class='p1'>您的联系电话填写有误哦</view>
+        <view class='clearfix an center'>
+          <view class='' bindtap='cancel' style='color:#4CDE79;font-size:32rpx;'>确定</view>
+        </view>
+    </view>
+</view>
+<view class='btn center {{ac=="ac"?" b_gray":""}}' bindtap='cz'>立即充值</view>

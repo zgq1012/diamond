@@ -1,0 +1,97 @@
+<!--pages/member/m_info.wxml-->
+<view class='zt'>{{order.status==1?"待发货":""}}{{order.status==11?"待提取":""}}{{order.status==12?"已提取":""}}{{order.status==13?"已兑换":""}}</view>
+<navigator url="shipping?ordercd={{order.order_cd}}" class='d-info relative' wx:if="{{order.status==2||order.status==3}}">
+    <view class='h2' wx:if="{{order.status==2}}">已发货</view>
+    <view class='h2' wx:if="{{order.status==3}}">已收货</view>
+    <view class='p1'>{{shipInfo.track_cdata.track_content}}</view>
+   <image src='/images/right-back.png' mode='widthFix'  class='angle'></image>
+</navigator>
+  <view class='goods-item clearfix bg-fff exc'>
+    <view class='left l'>
+      <image src="{{product.img}}"></image>
+    </view>
+    <view class='left r'>
+      <view class='p1'>{{product.name}}</view>
+      <view class='p2 red'>
+        <image src='/images/mall.png' mode='widthFix' style='width:30rpx;vertical-align:bottom;'></image>{{product.price}}</view>
+    </view>
+  </view>
+  <view class='dl bg-fff margin-top'>
+      <view class='dt' wx:if="{{product.type==1}}">邮寄地址</view>
+      <view class='dt' wx:if="{{product.type==2}}">联系方式</view>
+      <view class='dd clearfix'>
+          <view class='left l'>{{address.uname}}</view>
+          <view class='left r'>{{address.phone}}</view>
+      </view>
+      <view class='p'>{{address.province}} {{address.city}} {{address.county}} {{address.address}}</view>
+  </view>
+  <view class='dl bg-fff margin-top dui'>
+      <view class='dt'>兑换信息</view>
+      <view class='dd clearfix'>
+          <view class='left l'>兑换时间：</view>
+          <view class='left r'>{{order.created_dt}}</view>
+      </view>
+      <view class='dd clearfix'>
+          <view class='left l'>消耗宝钻：</view>
+          <view class='left r'>{{order.amount}}个</view>
+      </view>
+      <view class='dd clearfix'>
+          <view class='left l'>联系手机：</view>
+          <view class='left r'>{{order.phone}}</view>
+      </view>
+
+  </view>
+
+<view class='dl bg-fff ka' wx:if="{{voucher}}">
+  <view class='dt b_bot' style='margin-bottom:16rpx;'>卡密信息</view>
+
+  <view class='dd clearfix'>
+    <view class='left l'>卡号1：</view>
+    <view class='left r'>{{voucher.card_number}}
+      <view class='right' bindtap='copy' data-km='卡号：{{voucher.card_number}}密码：{{voucher.card_pwd}}'>复制卡号</view>
+    </view>
+  </view>
+  <view class='dd clearfix'>
+    <view class='left l'>卡密1：</view>
+    <view class='left r'>{{voucher.card_pwd}}
+      <view class='right' bindtap='copy' data-km='卡号：{{voucher.card_number}}密码：{{voucher.card_pwd}}'>复制卡密</view>
+    </view>
+  </view>
+
+</view>
+  <view class='td clearfix center bg-fff'  wx:if="{{order.status==11}}" style='bottom:0rpx;'>
+  <view class='left item' bindtap='que'>提取卡密</view>
+  <view class='left r item' bindtap='que1' data-backprice='{{product.backprice}}'>兑换宝钻</view>
+</view>
+
+<view class='model center km' wx:if="{{model}}">
+  <view class='inner bg-fff' style='width:648rpx;margin-left:-324rpx;'>
+    <view class='h2'>您确定要提取卡密吗？</view>
+    <view class='p1'>卡密可用于充值话费或提现至支付宝。</view>
+    <view class='clearfix an center'>
+      <view class='left l' bindtap='cancel'>我再想想</view>
+      <view class='left r bg-red fff' bindtap='tiqu'>确定提取</view>
+    </view>
+  </view>
+</view>
+<view class='model center km' wx:if="{{model1}}">
+  <view class='inner bg-fff' style='width:648rpx;margin-left:-324rpx;'>
+    <view class='h2'>您确定要弃奖吗？</view>
+    <view class='p1'>弃奖后，将为您兑换{{product.backprice}}个宝钻。宝钻在兑换后立即到账~</view>
+    <view class='clearfix an center'>
+      <view class='left l' bindtap='cancel'>我再想想</view>
+      <view class='left r bg-red fff' bindtap='duihuan'>确定提取</view>
+    </view>
+  </view>
+</view>
+<view class='model' wx:if="{{model2}}">
+  <view class='inner bg-fff'>
+    <view class='h2 center'>牌友互娱</view>
+    <view class='p1'>亲爱的用户，您在宝钻乐园中获得的{{product.name}}已经成功兑换成宝钻，您可以至“我的-宝钻明细”中查看宝钻变更详情。</view>
+    <view class='clearfix an center' style='background-color:#F7F7F7'>
+      <view class='' bindtap='cancel' style='color:#333;font-size:32rpx;'>确定</view>
+    </view>
+  </view>
+</view>
+
+

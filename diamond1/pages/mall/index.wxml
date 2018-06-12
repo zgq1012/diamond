@@ -1,0 +1,61 @@
+<view class="index-body">
+<view class='user_top'><image src='/images/mall.png' mode='widthFix'></image>{{diamond}}<image src='/images/mei.png' mode='widthFix'></image>{{you_coin}} <navigator url='../member/recharge'><image src='/images/plus.png' mode='widthFix' class='i3'></image></navigator>
+  <view class='right' bindtap='g'>如何获钻 <image src='/images/wen.png' mode='widthFix'></image></view>
+</view>
+<swiper class="index-banner" indicator-dots="true" autoplay="true" interval="5000" indicator-color="#fff" indicator-active-color="#e7505a" >
+<block wx:for="{{banners}}" wx:key="a">
+    <swiper-item>
+      <image src="{{item.img}}" class="slide-image"  mode="widthFix"/>
+    </swiper-item>
+  </block>
+</swiper>
+
+ <view class="index-row mall">
+
+  <view class='index-list clearfix'>
+  <block wx:for="{{pageData}}" wx:item="item" wx:key="a">
+    <view class='index-item left'>
+      <navigator url="../mall/show?sku={{item.sku}}" class='pic center'><image src='{{item.img}}'></image></navigator>
+      <view class='title title1'>{{item.name}}</view>
+    
+      <view class='clearfix xu'>
+          <view class='left l'>
+              <view><image src='/images/mall.png' mode="widthFix"></image>{{item.price}}</view>
+          </view>
+          <view class='right r' bindtap='dui' data-sku='{{item.sku}}' data-price='{{item.price}}' data-type='{{item.type}}'>
+              去兑换
+          </view>
+      </view>
+    </view>
+  </block> 
+  </view>
+</view>
+
+
+
+
+</view>
+
+<view class='model' wx:if="{{g}}">
+  <view class='get bg-fff'>
+    <view class='g-top center'>
+      <image src='/images/help.png' mode='widthFix'></image>
+    </view>
+    <navigator url="../member/recharge" class='method center'>
+      <view class='p1'><span>方法一</span>充值中心，充友币，送宝钻 <image src='/icons/right-back.png' mode='widthFix'></image></view>
+      <view class='img'><image src='/images/m1.png' mode='widthFix'></image></view>
+    </navigator>
+    <view class='close1 center' bindtap='g'>我知道了</view>
+  </view>
+</view>
+  <view class='center more' wx:if="{{!have}}">没有更多数据了</view>
+
+  <view class='model' wx:if="{{model}}">
+    <view class='inner bg-fff'>
+        <view class='p1'>您的钻余额不足，还差<span class="red">{{cha}}</span>个宝钻才能够兑换该商品哦·快去获取更多宝钻吧</view>
+        <view class='clearfix an center'>
+          <view class='left l' bindtap='cancel'>取消</view>
+          <navigator url='/pages/member/recharge' class='left r'>获取宝钻</navigator>
+        </view>
+    </view>
+</view>

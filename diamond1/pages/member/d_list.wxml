@@ -1,0 +1,107 @@
+<!--pages/member/d_list.wxml-->
+<view class='d_list'>
+    <view class='nav clearfix bg-fff center fixed'>
+      <view class='left item item5{{tab==1?" ac":""}}' bindtap='tab' data-tab='1'>全部</view>
+      <view class='left item item5{{tab==2?" ac":""}}' bindtap='tab' data-tab='2'>进行中</view>
+      <view class='left item item5{{tab==3?" ac":""}}' bindtap='tab' data-tab='3'>已揭晓</view>
+      <view class='left item item5{{tab==4?" ac":""}}' bindtap='tab' data-tab='4'>已中奖</view>
+      <view class='left item item5{{tab==5?" ac":""}}' bindtap='tab' data-tab='5'>待支付</view>
+    </view>
+    <block wx:for="{{list}}" wx:key="a">
+  <view class='goods-item clearfix bg-fff relative'>
+    <navigator url="draw_info?ordercd={{item.order_cd}}&lotteryperiods_id={{item.lotteryperiods_id}}" class='left l clearfix center'>
+      <image src="{{item.img}}"></image>
+      <view class='qi'>第{{item.periods}}期</view>
+    </navigator>
+    <view class='left r'>
+      <navigator url="draw_info?ordercd={{item.order_cd}}&lotteryperiods_id={{item.lotteryperiods_id}}" class='p1'>{{item.name}}</navigator>
+      <view class='p2 relative'>参与次数：{{item.times}}次
+        <navigator url="/pages/news/show?periods_id={{item.lotteryperiods_id}}" class='cy' wx:if="{{item.status==2}}">继续参与</navigator>
+        <view class='cy' wx:if="{{item.status==1}}" bindtap='pay' data-order_cd='{{item.order_cd}}'>去支付</view>
+      </view>
+       <view class='p3' wx:if="{{item.status==1}}">待支付</view>
+       <view class='p3' wx:if="{{item.status==3}}">未中奖</view>
+     <view class='p3 p4' wx:if="{{item.prized_status==13}}">已兑换宝钻</view> 
+      <view class='p3 p4 red' wx:if="{{item.status==2}}">进行中</view>
+      <view class='p3 p4' wx:if="{{item.prized_status==2}}">待发货</view>
+      <view class='p3 p4' wx:if="{{item.prized_status==4}}">已收货</view>
+      <view class='p3 p4' wx:if="{{item.status==10}}">已过期</view>
+    </view>
+    <view class='bot clearfix'>
+      <view class='left l' wx:if="{{item.prized_status==11}}">已中奖，待提取</view>
+       <view class='left l' wx:if="{{item.prized_status==12}}">已提取卡密</view>
+       <view class='left l'  wx:if="{{item.prized_status==1}}">已中奖，待填写收货信息</view>
+       <view class='left l'  wx:if="{{item.prized_status==3}}">已发货</view>
+      <view class='right clearfix'>
+        <view class='tq an left' wx:if="{{item.prized_status==11}}"  bindtap='que' data-order_cd='{{item.order_cd}}'>提取卡密</view>
+        <view class='change an left' wx:if="{{item.prized_status==11}}"  bindtap='que1' data-backprice='{{item.backprice}}'  data-order_cd='{{item.order_cd}}'>兑换宝钻</view>
+        <view class='change an left' wx:if="{{item.prized_status==12}}"  bindtap='kan'  data-order_cd='{{item.order_cd}}'>查看卡密</view>
+        <navigator url='delivery?ordercd={{item.order_cd}}' class='change an left' wx:if="{{item.prized_status==1}}">填写收货信息</navigator>
+        <navigator url='shipping?ordercd={{item.order_cd}}' class='change an left' wx:if="{{item.prized_status==3}}">查看物流</navigator>
+        <!-- <view class='change an left' wx:if="{{item.status==1}}" bindtap='pay'>去支付</view> -->
+      </view>
+    </view>
+  </view>
+  <!--原  -->
+  </block>
+  
+
+</view>
+  <view class='wu center' wx:if="{{!list[0]}}">
+    <view class='pic'><image src='/images/wu.png' mode='widthFix'></image></view>
+    <view class='p1'>您当前没有订单哦</view>
+    <navigator open-type="switchTab" url='../mall/index'>立即参与</navigator>
+  </view>
+<view class='ts center'>仅显示近三个月订单</view>
+
+<!-- <view class='center more' wx:if="{{!have&&list[0]}}">没有更多数据了</view> -->
+<view class='model center km' wx:if="{{model}}">
+  <view class='inner bg-fff' style='width:648rpx;margin-left:-324rpx;'>
+    <view class='h2'>您确定要提取卡密吗？</view>
+    <view class='p1'>卡密可用于充值话费或提现至支付宝。</view>
+    <view class='clearfix an center'>
+      <view class='left l' bindtap='cancel'>我再想想</view>
+      <view class='left r bg-red fff' bindtap='tiqu'>确定提取</view>
+    </view>
+  </view>
+</view>
+<view class='model center km' wx:if="{{model1}}">
+  <view class='inner bg-fff' style='width:648rpx;margin-left:-324rpx;'>
+    <view class='h2'>您确定要弃奖吗？</view>
+    <view class='p1'>弃奖后，将为您兑换{{backprice}}个宝钻。宝钻在兑换后立即到账~</view>
+    <view class='clearfix an center'>
+      <view class='left l' bindtap='cancel'>我再想想</view>
+      <view class='left r bg-red fff' bindtap='duihuan'>确定兑换</view>
+    </view>
+  </view>
+</view>
+<view class='model' wx:if="{{model2}}">
+  <view class='inner bg-fff'>
+    <view class='h2 center'>牌友互娱</view>
+    <view class='p1'>亲爱的用户，您在宝钻乐园中获得的{{product.name}}已经成功兑换成宝钻，您可以至“我的-宝钻明细”中查看宝钻变更详情。</view>
+    <view class='clearfix an center' style='background-color:#F7F7F7'>
+      <view class='' bindtap='cancel' style='color:#333;font-size:32rpx;'>确定</view>
+    </view>
+  </view>
+</view>
+
+<view class='all relative' wx:if="{{open}}">
+  <view class='all_in kami'>
+    <view class='dl bg-fff ka'>
+      <view class='dd clearfix'>
+        <view class='left l'>卡号1：</view>
+        <view class='left r'>{{card_number}}
+          <view class='right' bindtap='copy' data-km='卡号：{{card_number}}密码：{{card_pwd}}'>复制卡号1</view>
+        </view>
+      </view>
+      <view class='dd clearfix'>
+        <view class='left l'>卡密1：</view>
+        <view class='left r'>{{card_pwd}}
+          <view class='right' bindtap='copy' data-km='卡号：{{card_number}}密码：{{card_pwd}}'>复制卡密1</view>
+        </view>
+      </view>
+
+    </view>
+  </view>
+  <view class='close center' bindtap='close'>×</view>
+</view>

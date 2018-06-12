@@ -1,0 +1,35 @@
+<view class="show mall-show">
+  <view class='show_top relative'>
+    <image src='{{product.img}}' mode="widthFix"></image>
+  </view>
+
+  <view class='title b_none'>{{product.name}}</view>
+  <view class='price'><image src='/images/mall.png' mode='widthFix'></image>{{price}}</view>
+
+  <view class='bg'></view>
+  <view class='te'>
+    <view class='tit'>产品特点</view>
+    <view class='description'>
+    <block wx:for="{{str_arr}}" wx:key="a">
+      <view>{{item}}</view>
+    </block>
+    </view>
+  </view>
+  <view class='bg'></view>
+  <view class='te'>
+    <view class='tit'>规则说明</view>
+    <view class='description'><text>①兑换成功后，7个工作日内发货。\n②一经兑换，无法退还宝钻。\n③商品兑换后，免运费。\n④兑换记录可在“我的-宝钻商城兑换记录”中查看。</text></view>
+  </view>
+    <view class='bg'></view>
+ 
+<view  class='btn center' bindtap='dui'>立即兑换</view>
+<view class='model' wx:if="{{model}}">
+    <view class='inner bg-fff'>
+        <view class='p1'>您的钻余额不足，还差<span class="red">{{cha}}</span>个宝钻才能够兑换该商品哦·快去获取更多宝钻吧</view>
+        <view class='clearfix an center'>
+          <view class='left l' bindtap='cancel'>取消</view>
+          <navigator url='/pages/member/recharge' class='left r'>获取宝钻</navigator>
+        </view>
+    </view>
+</view>
+</view>

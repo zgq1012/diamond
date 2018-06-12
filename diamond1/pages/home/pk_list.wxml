@@ -1,0 +1,36 @@
+<!--pages/member/d_list.wxml-->
+<view class='d_list'>
+<block wx:for="{{list}}" wx:key="a">
+  <view class='goods-item clearfix bg-fff miao'>
+    <navigator url="../news/show?periods_id={{item.periods_id}}&type=13" class='left l clearfix center relative'>
+      <image src="{{item.img}}"></image>
+      <!-- <view class='qi'>第1期</view> -->
+      <view class='mk'>PK专场</view>
+    </navigator>
+    <view class='left r'>
+      <navigator url="../news/show?periods_id={{item.periods_id}}&type=13" class='p1'>{{item.name}}</navigator>
+      <view class='relative clearfix'>
+        <view class='left j'>
+          <view class='clearfix'>
+            <view class='left tiao'>
+               <view class='info_top relative'>
+                 <span style="width:{{(item.total-item.remain)/item.total*100}}%"></span>
+              </view>
+            </view>
+            <view class='right jin'>{{(item.total-item.remain)/item.total*100}}%</view>
+          </view>
+
+            <view class='p5'>总需 <image src='/images/diamond.jpg' mode='widthFix'></image> {{item.total}} <view class='right'>剩余 <image src='/images/diamond.jpg' mode='widthFix'></image> {{item.remain}} </view></view>       
+        </view>
+        <navigator url="../news/order?periods_id={{item.periods_id}}&type=13" class='right cy'>立即参与</navigator>
+      </view>
+    </view>
+   
+  </view>
+  </block>
+  <!--原  -->
+  
+  
+
+</view>
+ <view class='center more' wx:if="{{!have}}">没有更多数据了</view>

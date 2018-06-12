@@ -1,0 +1,197 @@
+<view class="show">
+  <view class='show_top relative'>
+    <image src='{{product.img}}'></image>
+    <!-- <span wx:if="{{t==2}}">第一期</span> -->
+    <span>第{{data.periods}}期</span>
+    <!-- <span wx:if="{{product.type==1}}">第{{data.periods}}期</span> -->
+  </view>
+  <view class='info' wx:if="{{!jie}}">
+    <view class='info_top relative no'>
+      <span style="width:{{data.progress_times/data.total_times*100}}%"></span>
+    </view>
+    <view class='info_bot clearfix'>
+      <span class="left">总需人数{{data.total_times}}（{{data.single_price}}钻/人次）</span>
+      <span class="right">剩余人数{{data.total_times-data.progress_times}}</span>
+    </view>
+  </view>
+  <view class='info clearfix allready' wx:if="{{jie}}">
+    <view class='left jd'>
+      <view class='info_top relative no'>
+        <span style="width:{{data.progress_times/data.total_times*100}}%"></span>
+      </view>
+      <view class='info_bot clearfix'>
+        <span class="left">总需人数{{data.total_times}}（{{data.single_price}}钻/人次）</span>
+        <span class="right">剩余人数{{data.total_times-data.progress_times}}</span>
+      </view>
+    </view>
+    <view class='right jw'>
+      <!-- {{data.total_times-data.progress_times==0&&lastPeriodsList[0].periods_id?"已揭晓":""}}{{data.total_times-data.progress_times==0&&!lastPeriodsList[0].periods_id?"待揭晓":"进行中"}} -->
+      已揭晓
+    </view>
+  </view>
+
+
+
+  <view class='title'>
+    <span class="kai" wx:if="{{type==11}}">极速秒开</span>
+    <span class="pk" wx:if="{{type==12}}">热卖爆款</span>
+    <span class="pk" wx:if="{{type==13}}">2人pk</span>{{product.name}}
+    <span class="red">{{product.description}}</span>
+  </view>
+  <view class='canyu mar'>
+    <view class='center' wx:if="{{!numbernum}}">您还没有参与本次抽奖</view>
+
+    <view class='p' wx:if="{{numbernum}}">您参与了{{numbernum}}人次</view>
+    <view class='p clearfix' wx:if="{{numbernum}}">
+      <view class='left'>抽奖号码：</view>
+      <view class='right h'>
+        <block wx:for="{{numberList1}}" wx:key="a">
+          <span>{{item}}{{7==index&&numbernum>8?"...":""}}</span>
+        </block>
+
+
+      </view>
+      <view class='center clear kan' bindtap='close' wx:if="{{numbernum>8}}">查看更多</view>
+    </view>
+
+  </view>
+
+  <view class='show_de' wx:if="{{jie}}">
+    <view class='relative de '>
+      <view class='de_in relative'>
+        <view class='dl'>
+          <view class='dd clearfix'>
+            <view class='left l'>揭晓号码：</view>
+            <view class='left r'>{{prizedInfo.prized_number}}</view>
+          </view>
+          <view class='dd clearfix'>
+            <view class='left l'>中奖用户：</view>
+            <view class='left r'>{{prizedInfo.phone}}</view>
+          </view>
+          <view class='dd clearfix'>
+            <view class='left l'>揭晓时间：</view>
+            <view class='left r'>{{prizedInfo.prizedsucc_dt}}</view>
+          </view>
+          <view class='dd clearfix'>
+            <view class='left l'>参与次数：</view>
+            <view class='left r'>{{prizedInfo.times}}次</view>
+          </view>
+
+        </view>
+        <navigator url='../member/rule?periods_id={{periods_id}}'>计算规则</navigator>
+
+      </view>
+      <image src='/images/de.jpg' mode='widthFix'></image>
+    </view>
+  </view>
+
+
+
+  <view class='bg'></view>
+  <view class='sai mar'>
+    <view class='zhibo claefix b_bot  relative' wx:if="{{lastPeriodsList[0]}}">
+      <view class='i_r'>
+        <image src='/icons/right-back.png' mode='widthFix' style='width:20rpx;'></image>
+      </view>
+      <view class='left l'>中奖直播</view>
+      <view class='left r'>
+        <view class='l_in relative' style='top:{{top}}rpx;{{tran?"":"transition:top 1.2s"}}'>
+          <block wx:for="{{lastPeriodsList}}" wx:key="a">
+            <view class='item clearfix'>
+              <view class='left pic'>
+                <image src='{{item.headimgurl}}'></image>
+              </view>
+              <view class='left'>
+                <view class='hao'>{{item.prized_phone}}</view>
+                <view class='des'>{{item.prizedsucc_dt}}中奖 参与{{item.times}}人次</view>
+              </view>
+            </view>
+          </block>
+          <view class='item clearfix'>
+            <view class='left pic'>
+              <image src='{{lastPeriodsList[0].headimgurl}}'></image>
+            </view>
+            <view class='left'>
+              <view class='hao'>{{lastPeriodsList[0].prized_phone}}</view>
+              <view class='des'>{{lastPeriodsList[0].prizedsucc_dt}}中奖 参与{{lastPeriodsList[0].times}}人次</view>
+            </view>
+          </view>
+        </view>
+
+      </view>
+
+
+
+    </view>
+
+    <view class='zhibo claefix relative' wx:if="{{sai}}">
+      <view class='left l'>晒单分享</view>
+      <view class='i_r'>›</view>
+    </view>
+  </view>
+  <view class='bg'></view>
+
+  <view class='te'>
+    <view class='tit'>
+      <image src="/images/te.jpg" mode="widthFix"></image>产品特点</view>
+    <view class='description'>
+      <block wx:for="{{str_arr}}" wx:key="a">
+        <view>{{item}}</view>
+      </block>
+    </view>
+  </view>
+  <view class='bg'></view>
+  <view class='te' wx:if="{{product.type==1}}">
+    <view class='tit'>
+      <image src="/images/rule.png" mode="widthFix"></image>规则说明</view>
+    <view class='description'>
+      <text>1、本商品由第三方提供，商品于中奖后的7个工作日之内安排发放，若您对发货周期有疑虑，请谨慎参与。\n2、中奖用户请在7个自然日内在订单详情页填写收货信息，如中奖后7个自然日内，因中奖者未填写地址或者填写的信息错误、无效、快递电话挂断、无人接听等造成无法与中奖者联系，则视中奖者自动放弃该中奖资格。\n3、规定时间内，未达到总需人次，我们会将您参与本期抽奖的全部宝钻返还至您的宝钻账户，您可以至【我的-宝钻明细】中查看。\n4、参与该活动视为同意以上规则。\n5、抽奖有风险，参与需谨慎。</text>
+    </view>
+  </view>
+  <view class='bg' wx:if="{{product.type==1}}"></view>
+  <view class='te' wx:if="{{product.type==2}}">
+    <view class='tit'>
+      <image src="/images/rule.png" mode="widthFix"></image>规则说明</view>
+    <view class='description'>
+      <text>1、1、本商品由第三方提供，商品开奖后立即发放。\n2、卡密提取路径：【我的】-【宝钻抽奖记录】-【已中奖】-【提取卡密】。\n3、规定时间内，未达到总需人次，我们会将您参与本期抽奖的全部宝钻返还至您的宝钻账户，您可以至【我的-宝钻明细】中查看。\n4、参与该活动视为同意以上规则。\n5、抽奖有风险，参与需谨慎。</text>
+    </view>
+  </view>
+  <view class='bg' wx:if="{{product.type==2}}"></view>
+  <view class='te'>
+    <view class='tit'>
+      <image src="/images/edit.jpg" mode="widthFix"></image>参与记录</view>
+    <view class='list'>
+      <block wx:for="{{partakeList}}" wx:key="a">
+        <view class='item clearfix'>
+          <view class='left l'>
+            <view class='sj'>{{item.prized_phone}}</view>
+            <view class='sj'>参与了
+              <span class="red">{{item.times}}</span>人次</view>
+          </view>
+          <view class='right r'>{{item.submit_timestamp}}</view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <view class='center more' wx:if="{{!have}}">没有更多数据了</view>
+  <navigator url="order?periods_id={{periods_id?periods_id:data.periods}}&type={{type}}" class='btn center' wx:if="{{!jie&&data.total_times-data.progress_times>0&&periods_status==1}}">立即参与</navigator>
+
+</view>
+<view class='jx clearfix bg-fff' wx:if="{{new_periods_id}}">
+  <view class='left'>新一期正在进行</view>
+  <navigator open-type="redirect" url="show?periods_id={{new_periods_id}}&type={{type}}" class='right center'>立即前往</navigator>
+</view>
+
+
+
+<view class='all center relative' wx:if="{{open}}">
+  <view class='all_in'>
+    <view class='h3 b_bot'>全部号码</view>
+    <view class='hao clearfix'>
+      <block wx:for="{{numberList}}" wx:key="a">
+        <view class='item'>{{item}}{{numbernum-1==index?"":"、"}}</view>
+      </block>
+    </view>
+  </view>
+  <view class='close center' bindtap='close'>×</view>
+</view>

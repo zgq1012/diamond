@@ -1,0 +1,155 @@
+<view class="index-body">
+  <view class='user_top'>
+    <image src='/images/mall.png' mode='widthFix'></image>{{diamond}}
+    <image src='/images/mei.png' mode='widthFix'></image>{{you_coin}}
+    <navigator url='../member/recharge'>
+      <image src='/images/plus.png' mode='widthFix' class='i3'></image>
+    </navigator>
+    <view class='right' bindtap='g'>如何获钻
+      <image src='/images/wen.png' mode='widthFix'></image>
+    </view>
+  </view>
+  <swiper class="index-banner" indicator-dots="true" autoplay="true" interval="5000" indicator-color="#fff" indicator-active-color="#e7505a">
+    <block wx:for="{{banners}}" wx:key="a">
+      <swiper-item>
+        <image src="{{item.img}}" class="slide-image" mode="widthFix" />
+      </swiper-item>
+    </block>
+  </swiper>
+  <view class='announcement relative'>
+    <span class="left">
+      <image src="/images/ano.png" mode="widthFix"></image>
+    </span>
+    <view class='right notice'>
+
+
+
+      <view style='width:{{((3*nn)+1)*100}}%;' class='relative'>
+        <view animation="{{animationData}}">
+          <block wx:for="{{marqueeList}}" wx:key="a">
+            <span>
+              {{item.content}}
+            </span>
+          </block>
+         
+         <block wx:for="{{marqueeList}}" wx:key="a">
+            <span>
+              {{item.content}}
+            </span>
+          </block>
+         
+         <block wx:for="{{marqueeList}}" wx:key="a">
+            <span>
+              {{item.content}}
+            </span>
+          </block>
+          <span>
+            {{marqueeList1.content}}
+          </span>
+        </view>
+      </view>
+
+    </view>
+  </view>
+ 
+
+
+
+
+
+  <view class="index-icons">
+    <view class="flex-item" wx:for="{{icons}}" wx:key="a">
+      <navigator url="{{item.url}}">
+        <image class='image-icon' src="{{item.icon}}" mode='widthFix' />
+        <view class='text-icon'>{{item.name}}</view>
+      </navigator>
+    </view>
+  </view>
+
+
+  <view class="index-row">
+    <view class="index-row-index clearfix">
+      <view class='left item item4 {{nav==1?" ac":""}}' data-nav='1' bindtap='nav'>热门</view>
+      <view class='left item item4 {{nav==2?" ac":""}}' data-nav='2' bindtap='nav'>进度</view>
+      <view class='left item item4 {{nav==3?" ac":""}}' data-nav='3' bindtap='nav'>新品</view>
+      <view class='left item item4 {{nav==4?" ac":""}} {{nav==5?" ac":""}}' bindtap='price'>价格
+        <image src='/images/angle-ud.jpg' mode='widthFix' wx:if="{{p==0}}"></image>
+        <image src='/images/angle-up.jpg' mode='widthFix' wx:if="{{p==4}}"></image>
+        <image src='/images/angle-down.jpg' mode='widthFix' wx:if="{{p==5}}"></image>
+      </view>
+    </view>
+    <view class='index-list clearfix'>
+      <block wx:for="{{pageData}}" wx:item="item" wx:key="a">
+        <view class='index-item left'>
+          <navigator url="../news/show?periods_id={{item.periods_id}}&type={{item.type}}" class='pic center relative'>
+            <image src='{{item.img}}'></image>
+            <span class="span span1" wx:if="{{item.type==11}}">极速秒开</span>
+          </navigator>
+          <!-- <span class="span span2" wx:if="{{item.type==12}}">热卖爆款</span><span class="span span3" wx:if="{{item.type==13}}">2人pk</span> -->
+          <view class='title title1'>{{item.name}}</view>
+          <view class='clearfix  jindu'>
+            <view class='left'>
+              <span style="width:{{(item.total-item.remain)/item.total*100}}%"></span>
+            </view>
+            <view class='right'>{{item.rate}}%</view>
+          </view>
+          <view class='clearfix xu'>
+            <view class='left l'>
+              <view>总需
+                <image src='/images/diamond.jpg' mode="widthFix"></image>{{item.total}}</view>
+              <view>剩余
+                <image src='/images/diamond.jpg' mode="widthFix"></image>{{item.remain}}</view>
+            </view>
+            <navigator url="../news/order?periods_id={{item.periods_id}}&type={{item.type}}" class='right r' wx:if="{{item.remain>0}}">
+              立即参与
+            </navigator>
+          </view>
+        </view>
+      </block>
+
+
+    </view>
+    <view class='center more' wx:if="{{!have}}">没有更多数据了</view>
+  </view>
+
+
+
+
+</view>
+<navigator url="/pages/member/d_list" class='ce'>
+  <image src='/images/dd.png' mode="widthFix"></image>
+</navigator>
+<view class='model' wx:if="{{g}}">
+  <view class='get bg-fff'>
+    <view class='g-top center'>
+      <image src='/images/help.png' mode='widthFix'></image>
+    </view>
+    <navigator url="../member/recharge" class='method center'>
+      <view class='p1'>
+        <span>方法一</span>充值中心，充友币，送宝钻
+        <image src='/icons/right-back.png' mode='widthFix'></image>
+      </view>
+      <view class='img'>
+        <image src='/images/m1.png' mode='widthFix'></image>
+      </view>
+    </navigator>
+    <view class='close1 center' bindtap='g'>我知道了</view>
+  </view>
+</view>
+
+<block wx:for="{{remindList}}" wx:key="a">
+  <view class='zhong center' wx:if="{{index>show}}" style="z-index:{{888-index}}">
+    <view class='pic'>
+      <image src="/images/zhong.png" mode='widthFix'></image>
+    </view>
+    <view class='p'>第{{item.periods}}期</view>
+    <view class='p'>{{item.name}}</view>
+    <view class='anniu'>
+      <view class='item'>
+        <navigator url="/pages/member/draw_info?ordercd={{item.order_cd}}">查看详情</navigator>
+      </view>
+      <button open-type="share" class='item item1' data-name='{{item.name}}' data-img='{{item.img}}'>分享</button>
+    </view>
+    <view class='close' bindtap='close' data-show='{{index}}'>×</view>
+  </view>
+</block>

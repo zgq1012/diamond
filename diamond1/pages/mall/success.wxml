@@ -1,0 +1,11 @@
+<!--pages/news/success.wxml-->
+<view class='order_success bg-fff'>
+  <view class='s_top'>
+    <view class='p1'><image src='/images/ic.jpg' mode='widthFix'></image>恭喜您，兑换成功！</view>
+    <image src='/images/s.png'  mode='widthFix' class='r'></image>
+  </view>
+  <view class='anniu center'>
+      <navigator open-type="switchTab" url="../mall/index" class='a1'>返回首页</navigator>
+      <navigator open-type="redirect" url="/pages/member/m_info?order_cd={{order_cd}}">查看订单</navigator>
+  </view>
+</view>

@@ -1,0 +1,12 @@
+<!--pages/news/success.wxml-->
+<view class='order_success bg-fff'>
+  <view class='s_top'>
+    <view class='p1'><image src='/images/ic.jpg' mode='widthFix'></image>恭喜您，下单成功！</view>
+    <view class='p2'>如订单状态未及时刷新，请耐心等待</view>
+    <image src='/images/s.png'  mode='widthFix' class='r'></image>
+  </view>
+  <view class='anniu center'>
+      <navigator  open-type="redirect" url="/pages/news/show?periods_id={{id}}&type={{type}}" class='a1'>继续抽奖</navigator>
+      <navigator  open-type="redirect" url="/pages/member/draw_info?ordercd={{order}}">查看抽奖详情</navigator>
+  </view>
+</view>

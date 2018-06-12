@@ -1,0 +1,189 @@
+<!--pages/member/d_info.wxml-->
+<view class='zt' wx:if="{{orderInfo.status==1}}">待支付</view>
+<view class='zt' wx:if="{{orderInfo.status==2}}">抽奖进行中</view>
+<view class='zt' wx:if="{{orderInfo.status==3}}">已揭晓未中奖</view>
+<view class='zt' wx:if="{{orderInfo.status!=10&&orderInfo.prized_status!=3&&orderInfo.prized_status!=4}}">{{orderInfo.prized_status==11?"已中奖，待提取":""}}{{orderInfo.prized_status==12?"已提取卡密":""}}{{orderInfo.prized_status==13?"已兑换宝钻":""}}</view>
+<view class='zt' wx:if="{{orderInfo.status==10}}">已过期</view>
+<view class='zt' wx:if="{{orderInfo.prized_status==1}}">已中奖，待填写收货信息</view>
+<navigator url="shipping?ordercd={{orderInfo.order_cd}}" class='d-info relative' wx:if="{{orderInfo.prized_status==3||orderInfo.prized_status==4}}">
+    <view class='h2' wx:if="{{orderInfo.prized_status==3}}">已发货</view>
+    <view class='h2' wx:if="{{orderInfo.prized_status==4}}">已收货</view>
+    <view class='p1'>{{shipping.track_cdata.track_content}}</view>
+   <image src='/images/right-back.png' mode='widthFix'  class='angle'></image>
+</navigator>
+  <view class='dl bg-fff margin-top' wx:if="{{address.uname}}">
+      <view class='dt'>邮寄地址</view>
+      <view class='dd clearfix'>
+          <view class='left l'>{{address.uname}}</view>
+          <view class='left r'>{{address.phone}}</view>
+      </view>
+      <view class='p'>{{address.province}} {{address.city}} {{address.county}} {{address.address}}</view>
+  </view>
+<view class='goods-item clearfix bg-fff exc info'>
+  <view class='left l'>
+    <image src="{{product.img}}"></image>
+  </view>
+  <view class='left r'>
+    <view class='p1'>{{product.name}}</view>
+    <view class='info_top relative'>
+      <span style="width:{{product.current_times/product.total_times*100}}%"></span>
+    </view>
+    <view class='p2'>总需人数次{{product.total_times}}/剩余：{{product.total_times-product.current_times}}</view>
+  </view>
+</view>
+<view class='one bg-fff margin-top' wx:if="{{prized_number}}">揭晓号码：
+  <span>{{prized_number}}</span>
+</view>
+
+<view class='relative de' wx:if="{{prized_number&&orderInfo.status==4}}">
+  <view class='de_in relative'>
+    <view class='dl'>
+      <view class='dd clearfix'>
+        <view class='left l'>揭晓号码：</view>
+        <view class='left r'>{{prized_number}}</view>
+      </view>
+      <view class='dd clearfix'>
+        <view class='left l'>中奖用户：</view>
+        <view class='left r'>{{prizedInfo.phone}}</view>
+      </view>
+      <view class='dd clearfix'>
+        <view class='left l'>揭晓时间：</view>
+        <view class='left r'>{{prizedInfo.prizedsucc_dt}}</view>
+      </view>
+      <view class='dd clearfix'>
+        <view class='left l'>参与次数：</view>
+        <view class='left r'>{{prizedInfo.times}}次</view>
+      </view>
+
+    </view>
+    <navigator url='rule?periods_id={{periods_id}}'>计算规则</navigator>
+
+  </view>
+  <image src='/images/de.jpg' mode='widthFix'></image>
+</view>
+
+<view class='dl bg-fff margin-top dui'>
+  <view class='dt b_bot' style='margin-bottom:16rpx;'>参与信息</view>
+  <view class='dd clearfix'>
+    <view class='left l'>订单编号：</view>
+    <view class='right r'>{{orderInfo.order_cd}}</view>
+  </view>
+  <view class='dd clearfix'>
+    <view class='left l'>抽奖时间：</view>
+    <view class='right r'>{{orderInfo.submit_timestamp}}</view>
+  </view>
+  <view class='dd clearfix'>
+    <view class='left l'>使用宝钻：</view>
+    <view class='right r'>{{orderInfo.amount}}个</view>
+  </view>
+  <view class='dd clearfix'>
+    <view class='left l'>参与次数：</view>
+    <view class='right r'>{{orderInfo.times}}次</view>
+  </view>
+  <view class='dd clearfix'>
+    <view class='left l'>联系手机：</view>
+    <view class='right r'>{{orderInfo.phone}}</view>
+  </view>
+  <view class='dd clearfix'>
+    <view class='left l'>抽奖号码：</view>
+    <view class='right r num clearfix'>
+      <block wx:for="{{numberList1}}" wx:key="a">
+        <view class='left'>{{item}}{{8==index&&numbernum>9?"...":""}}</view>
+      </block>
+    </view>
+  </view>
+  <view class='haoma center' bindtap='close' wx:if="{{num>9}}">查看全部号码</view>
+</view>
+
+<view class='dl bg-fff ka' wx:if="{{card_number&&product.type==2}}">
+  <view class='dt b_bot' style='margin-bottom:16rpx;'>卡密信息</view>
+
+  <view class='dd clearfix'>
+    <view class='left l'>卡号1：</view>
+    <view class='left r'>{{card_number}}
+      <view class='right' bindtap='copy' data-km='卡号：{{card_number}}密码：{{card_pwd}}'>复制卡号</view>
+    </view>
+  </view>
+  <view class='dd clearfix'>
+    <view class='left l'>卡密1：</view>
+    <view class='left r'>{{card_pwd}}
+      <view class='right' bindtap='copy' data-km='卡号：{{card_number}}密码：{{card_pwd}}'>复制卡密</view>
+    </view>
+  </view>
+
+</view>
+<view class='btn center ' wx:if="{{orderInfo.status==1}}" bindtap='pay' data-order_cd='{{orderInfo.order_cd}}'>立即支付</view>
+<navigator open-type="redirect" url='/pages/news/show?periods_id={{periods_id}}' class='btn center' wx:if="{{orderInfo.status==2}}">继续参与</navigator>
+<view class='jx clearfix bg-fff' wx:if="{{new_periods_id}}">
+  <view class='left'>新一期正在进行</view>
+  <navigator open-type="redirect" url="/pages/news/show?periods_id={{new_periods_id}}" class='right center'>立即前往</navigator>
+</view>
+<view class='td clearfix center bg-fff'  wx:if="{{orderInfo.prized_status==11}}" style='bottom:0rpx;'>
+  <view class='left item' bindtap='que'>提取卡密</view>
+  <view class='left r item' bindtap='que1' data-backprice='{{product.backprice}}'>兑换宝钻</view>
+</view>
+<!-- <view class='td clearfix center bg-fff'  wx:if="{{orderInfo.prized_status==1}}"> -->
+  <navigator url='delivery?ordercd={{orderInfo.order_cd}}' class='btn center' wx:if="{{orderInfo.prized_status==1}}">填写收货信息</navigator>
+<!-- </view> -->
+<view class='model center km' wx:if="{{model}}">
+  <view class='inner bg-fff' style='width:648rpx;margin-left:-324rpx;'>
+    <view class='h2'>您确定要提取卡密吗？</view>
+    <view class='p1'>卡密可用于充值话费或提现至支付宝。</view>
+    <view class='clearfix an center'>
+      <view class='left l' bindtap='cancel'>我再想想</view>
+      <view class='left r bg-red fff' bindtap='tiqu'>确定提取</view>
+    </view>
+  </view>
+</view>
+<view class='model center km' wx:if="{{model1}}">
+  <view class='inner bg-fff' style='width:648rpx;margin-left:-324rpx;'>
+    <view class='h2'>您确定要弃奖吗？</view>
+    <view class='p1'>弃奖后，将为您兑换{{product.backprice}}个宝钻。宝钻在兑换后立即到账~</view>
+    <view class='clearfix an center'>
+      <view class='left l' bindtap='cancel'>我再想想</view>
+      <view class='left r bg-red fff' bindtap='duihuan'>确定提取</view>
+    </view>
+  </view>
+</view>
+<view class='model' wx:if="{{model2}}">
+  <view class='inner bg-fff'>
+    <view class='h2 center'>牌友互娱</view>
+    <view class='p1'>亲爱的用户，您在宝钻乐园中获得的{{product.name}}已经成功兑换成宝钻，您可以至“我的-宝钻明细”中查看宝钻变更详情。</view>
+    <view class='clearfix an center' style='background-color:#F7F7F7'>
+      <view class='' bindtap='cancel' style='color:#333;font-size:32rpx;'>确定</view>
+    </view>
+  </view>
+</view>
+
+<view class='all center relative' wx:if="{{open}}">
+  <view class='all_in'>
+    <view class='h3 b_bot'>全部号码</view>
+    <view class='hao clearfix center'>
+      <block wx:for="{{numberList}}" wx:key="a">
+        <span style="display:inline-block">{{item}}{{num-1==index?"":"、"}}</span>
+      </block>
+    </view>
+  </view>
+  <view class='close center' bindtap='close'>×</view>
+</view>
+
+<view class='all relative' wx:if="{{open1}}">
+  <view class='all_in kami'>
+    <view class='dl bg-fff ka'>
+      <view class='dd clearfix'>
+        <view class='left l'>卡号1：</view>
+        <view class='left r'>{{card_number}}
+          <view class='right'>复制卡号1</view>
+        </view>
+      </view>
+      <view class='dd clearfix'>
+        <view class='left l'>卡密1：</view>
+        <view class='left r'>{{card_pwd}}
+          <view class='right'>复制卡密1</view>
+        </view>
+      </view>
+
+    </view>
+  </view>
+  <view class='close center' bindtap='close'>×</view>
+</view>

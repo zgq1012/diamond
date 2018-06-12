@@ -1,0 +1,37 @@
+<view class='user-index clearfix'>
+    <view class='left pic'><image src='{{data.headimgurl}}' mode='widthFix'></image> <view class='right'>{{data.nickname}}</view> </view>
+    <navigator url='recharge' class='right r relative'>
+        <view class='cz'><image src='/images/cz.png'  mode='widthFix'></image>充值</view>
+        <image src='/images/song.png' class='song' mode='widthFix'></image>
+    </navigator>
+</view>
+<view class='mingxi clearfix bg-fff'>
+  <navigator class='left clearfix meigui relative' url="record?tab=1">
+      <view class='left pic'><image src="/images/mei.png" mode='widthFix'></image></view>
+      <view class='left r'>
+          <view class='p1'>{{data.you_coin}}</view>
+          <view class='p1'>友币明细</view>
+      </view>
+  </navigator>
+
+  <navigator class='left clearfix diamond'  url="record?tab=2">
+      <view class='left pic'><image src="/images/mall.png" mode='widthFix'></image></view>
+      <view class='left r'>
+          <view class='p1'>{{data.diamond}}</view>
+          <view class='p1'>宝钻明细</view>
+      </view>
+  </navigator>
+</view>
+<block wx:for="{{columnList}}" wx:key="a">
+  <navigator url="{{item.url}}" hidden="{{flag}}" class='clearfix bg-fff'>
+   <image src="{{item.iconPath}}" class="user-icon left"></image>
+    <view class="user-item left">
+     
+      <text class=".user-column">{{item.columnName}}</text>
+    <image src="../../icons/right-back.png" class="r-back"></image>
+    </view>
+    </navigator>
+</block>
+
+
+
